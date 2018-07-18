@@ -23,6 +23,5 @@ node_modules/
 /data
 /public/
 /roles/*.*
-/conf/dev.config.py
 *.retry
 *.rdb

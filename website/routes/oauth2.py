@@ -1,10 +1,11 @@
 from flask import Blueprint, request
 from flask import jsonify, render_template
 from authlib.specs.rfc6749 import OAuth2Error
-from ..models import OAuth2Client
+from authlib.flask.oauth2 import current_token
+from ..models import OAuth2Client, OAuth2Token, User
 from ..auth import current_user
 from ..forms.auth import ConfirmForm, LoginConfirmForm
-from ..services.oauth2 import authorization, scopes
+from ..services.oauth2 import authorization, scopes, require_oauth
 
 from flask_cors import CORS
 
@@ -51,3 +52,15 @@ def issue_token():
 @bp.route('/revoke', methods=['POST'])
 def revoke_token():
     return authorization.create_revocation_response()
+
+@bp.route('/tokeninfo', methods=['GET'])
+def get_token_info():
+    token = OAuth2Token.query.filter_by(access_token=request.args['access_token']).first()
+    print(token)
+    if token.user_id:
+        user = User.query.get(token.user_id)
+        print(user)
+        udict = user.to_dict()
+        udict.update(token.to_dict())
+        return jsonify(udict)
+    return jsonify({error: 'invalid token supplied'})

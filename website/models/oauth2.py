@@ -52,3 +52,6 @@ class OAuth2Token(Base, OAuth2TokenMixin):
     @classmethod
     def query_token(cls, access_token):
         return cls.query.filter_by(access_token=access_token).first()
+
+    def to_dict(self):
+        return dict(id=self.id, user_id=self.user_id, scope=self.scope)

@@ -16,6 +16,7 @@ class User(Base):
     email = Column(String(255), unique=True, nullable=False)
     _password = Column('password', String(100))
     name = Column(String(80))
+    access_type = Column(String(40), default='user', nullable=False)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
     updated_at = Column(
         DateTime,
@@ -51,7 +52,7 @@ class User(Base):
         return user
 
     def to_dict(self):
-        return dict(id=self.id, name=self.name)
+        return dict(id=self.id, name=self.name, email=self.email, access_type=self.access_type)
 
 
 class Connect(Base):

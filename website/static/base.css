@@ -1,21 +1,24 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font: 400 16px/1.42 Roboto, sans-serif;
-  color: rgba(0, 0, 0, .68);
+  font-family: "Book Antiqua", Palatino, "Palatino Linotype", serif;
 }
 
 h1, h2, h3, strong {
-  color: rgba(0, 0, 0, .9);
+  color: rgb(0, 0, 0);
 }
 
 a {
-  color: rgba(0, 0, 0, .98);
+  color: rgb(0, 0, 0);
   word-wrap: break-word;
 }
 
 a:hover {
   color: #3e7fcb;
+}
+
+.head {
+	font-size: 12px;
 }
 
 .inner {
@@ -24,32 +27,35 @@ a:hover {
   padding-left: 20px;
   padding-right: 20px;
   box-sizing: border-box;
+  text-align: center;
 }
 
 .divide:after {
   display: block;
-  margin: 40px 0;
+  margin: 40px auto;
   content: '';
   width: 100px;
-  border-bottom: 4px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 4px solid lightgrey;
 }
 
 .btn {
   display: inline-block;
-  padding: .72em 1.2em;
-  font-size: 0.96em;
-  line-height: 1;
+  padding: .25em 2em;
+  margin: 1em;
+  font-size: 1em;
+  line-height: 1.5;
   font-weight: 700;
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.98);
-  border: 2px solid rgba(0, 0, 0, 0.98);
+  color: rgb(66, 31, 25);
+  border: 2px solid rgb(217, 146, 92);
+  border-radius: 4px;
   transition: background-color .1s;
 }
 
 .btn:hover {
   color: #fff;
-  border-color: #3e7fcb;
-  background-color: #3e7fcb;
+  border-color: rgb(217, 146, 92);
+  background-color: rgb(217, 146, 92);
 }
 
 .form-field {
@@ -68,7 +74,8 @@ a:hover {
   display: block;
   background: white;
   font-weight: 300;
-  border: 1px solid rgba(0, 0, 0, 0.42);
+  border: none;
+  border-bottom: 1px solid lightgrey;
   box-sizing: border-box;
   color: #333;
   outline: none;
@@ -76,6 +83,7 @@ a:hover {
   width: 100%;
   line-height: 1;
   padding: 8px;
+  margin: 0 auto;
 }
 
 .form-field_input[type="checkbox"] {
@@ -85,9 +93,12 @@ a:hover {
 }
 
 .form-field_input:hover,
+#redirect_uris:hover,
+#allowed_scopes:hover,
+#allowed_grants:hover,
 .form-field_input:focus,
 .form-field_input:active {
-  border-color: rgba(0, 0, 0, 0.98);
+  border-color: rgb(0, 0, 0);
 }
 
 .form-field_input::placeholder {
@@ -100,4 +111,36 @@ a:hover {
   padding: 0;
   font-size: 12px;
   color: #e85746;
+}
+
+.btn_sign {
+   padding: .6em 1.2em;
+   border: 1px solid rgb(255, 178, 139);
+   border-radius: 20px; 
+   -webkit-border-radius: 20px;
+   -moz-border-radius: 20px;
+   -khtml-border-radius: 20px; 
+   background: rgb(255, 178, 139);
+   outline: none; 
+   cursor: pointer;
+   color: white; 
+   font-size: 1em;
+   text-transform: uppercase;
+   font-weight: 700;
+   margin: 1em;
+   text-decoration: none;
+}
+
+.btn_sign:hover {
+  color: #fff;
+}
+
+.account_actions {
+	margin-top: 30px;
+}
+
+#redirect_uris,
+#allowed_scopes,
+#allowed_grants {
+	border: 1px solid lightgrey;
 }

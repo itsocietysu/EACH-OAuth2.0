@@ -144,3 +144,7 @@ a:hover {
 #allowed_grants {
 	border: 1px solid lightgrey;
 }
+
+ul li {
+	list-style-type: none;
+}

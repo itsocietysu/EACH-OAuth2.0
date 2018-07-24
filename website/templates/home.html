@@ -8,9 +8,11 @@
         <div class="account_actions">
           <a href="{{ url_for('account.logout') }}" class="btn_sign">Sign Out</a>
 		</div>
-		<div class="account_actions">
-          <a href="{{ url_for('client.list_clients') }}" class="btn">Apps</a>
-		</div>
+		{% if current_user.access_type == "admin" %}
+		  <div class="account_actions">
+            <a href="{{ url_for('client.list_clients') }}" class="btn">Apps</a>
+		  </div>
+		{% endif %}
       {% else %}
         <p>You need to log in.</p>
         <div class="account_actions">

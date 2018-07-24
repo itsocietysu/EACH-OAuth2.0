@@ -62,5 +62,5 @@ oauth = OAuth(cache=cache, fetch_token=fetch_token)
 def init_app(app):
     oauth.init_app(app)
     register_apps(oauth, [
-        'google', 'twitter', 'github', 'facebook'
+
     ])

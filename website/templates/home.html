@@ -4,9 +4,9 @@
   <section class="section">
     <div class="inner">
       {% if current_user %}
-        <p>You are logged in as <strong>{{ current_user.name }}</strong></p>
+        <p>You are signed in as <strong>{{ current_user.name }}</strong></p>
         <div class="account_actions">
-          <a href="{{ url_for('account.logout') }}" class="btn_sign">Sign Out</a>
+          <a href="{{ url_for('account.logout') }}" class="btn_act">Sign Out</a>
 		</div>
 		{% if current_user.access_type == "admin" %}
 		  <div class="account_actions">
@@ -14,7 +14,7 @@
 		  </div>
 		{% endif %}
       {% else %}
-        <p>You need to log in.</p>
+        <p>You need to sign in.</p>
         <div class="account_actions">
           <a href="{{ url_for('account.login') }}" class="btn">Sign in</a>
           <a href="{{ url_for('account.signup') }}" class="btn">Sign up</a>

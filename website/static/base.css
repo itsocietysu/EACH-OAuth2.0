@@ -113,7 +113,7 @@ a:hover {
   color: #e85746;
 }
 
-.btn_sign {
+.btn_act {
    padding: .6em 1.2em;
    border: 1px solid rgb(255, 178, 139);
    border-radius: 20px; 
@@ -131,7 +131,7 @@ a:hover {
    text-decoration: none;
 }
 
-.btn_sign:hover {
+.btn_act:hover {
   color: #fff;
 }
 

@@ -9,12 +9,21 @@ from ..services.oauth2 import authorization, scopes, require_oauth
 
 from flask_cors import CORS
 
+curr_url = None
+
+def current_url():
+    global curr_url
+    return curr_url
 
 bp = Blueprint('oauth2', __name__)
 CORS(bp)
 
 @bp.route('/authorize', methods=['GET', 'POST'])
 def authorize():
+
+    global curr_url
+    curr_url = '/oauth2/authorize?' + request.query_string
+
     if current_user:
         form = ConfirmForm()
     else:

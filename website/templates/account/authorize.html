@@ -15,5 +15,8 @@
   <form action="" method="post">
     {{ render_form(form) }}
     <button class="btn_act">Authorize</button>
+	<div class="account_actions">
+	  <a class="btn_reg" href="{{ url_for('account.signup') }}">not registered yet?</a>
+	</div>
   </form>
 {% endblock %}

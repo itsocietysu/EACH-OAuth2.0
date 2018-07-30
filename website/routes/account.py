@@ -4,6 +4,7 @@ from ..auth import current_user, logout as _logout
 from ..forms.user import AuthenticateForm, UserCreationForm
 
 from oauth2 import current_url
+from flask import request
 
 bp = Blueprint('account', __name__)
 
@@ -25,12 +26,23 @@ def logout():
     return redirect(url_for('front.home'))
 
 
+urls = []
+
+
 @bp.route('/signup', methods=['GET', 'POST'])
 def signup():
+    global urls
     if current_user:
-        return redirect(current_url())
+        return redirect(request.referrer)
     form = UserCreationForm()
     if form.validate_on_submit():
         form.signup()
-        return redirect(current_url())
+        tmp = urls[0]
+        del urls
+        urls = []
+        if 'authorize' in tmp:
+            return redirect(tmp)
+        else:
+            return redirect(url_for('front.home'))
+    urls.append(request.referrer)
     return render_template('account/signup.html', form=form)

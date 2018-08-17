@@ -15,6 +15,7 @@ if is_dev:
         resp.headers['Pragma'] = 'no-cache'
         return resp
 else:
+    os.environ['AUTHLIB_INSECURE_TRANSPORT'] = 'true'
     conf_file = os.path.abspath('conf/dev.config.py')
     app = create_app(conf_file)
 

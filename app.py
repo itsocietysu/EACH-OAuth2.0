@@ -15,7 +15,8 @@ if is_dev:
         resp.headers['Pragma'] = 'no-cache'
         return resp
 else:
-    app = create_app()
+    conf_file = os.path.abspath('conf/dev.config.py')
+    app = create_app(conf_file)
 
 
 @app.cli.command()

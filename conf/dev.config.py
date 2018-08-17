@@ -1,4 +1,4 @@
-SECRET_KEY = 'your-secret'
+SECRET_KEY='itseachsecret'
 
 SQLALCHEMY_DATABASE_URI = 'postgresql://each:Ellesmera2006@185.122.59.110:5434/OAuth_db'
 OAUTH_CACHE_DIR = '_cache'

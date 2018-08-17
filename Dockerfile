@@ -23,6 +23,6 @@ RUN mkdir -p ./logs
 RUN chmod 777 ./logs
 VOLUME ./logs
 
-EXPOSE 5000
+EXPOSE 443
 
 CMD ["./startup.sh"]

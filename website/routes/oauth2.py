@@ -11,16 +11,18 @@ from flask_cors import CORS
 
 curr_url = None
 
+
 def current_url():
     global curr_url
     return curr_url
 
+
 bp = Blueprint('oauth2', __name__)
 CORS(bp)
 
+
 @bp.route('/authorize', methods=['GET', 'POST'])
 def authorize():
-
     global curr_url
     curr_url = '/oauth2/authorize?' + request.query_string
 
@@ -62,14 +64,24 @@ def issue_token():
 def revoke_token():
     return authorization.create_revocation_response()
 
+
+@bp.route('/revoke_bearer', methods=['POST'])
+def revoke_token_bearer():
+    token = OAuth2Token.query_token(request.form['access_token'])
+    if token:
+        token.revoke()
+        return jsonify(token)
+    return jsonify({'error': 'invalid token supplied'}), 401
+
+
 @bp.route('/tokeninfo', methods=['GET'])
 def get_token_info():
-    token = OAuth2Token.query.filter_by(access_token=request.args['access_token']).first()
+    token = OAuth2Token.query_token(request.args['access_token'])
     print(token)
-    if token.user_id:
+    if token and token.user_id:
         user = User.query.get(token.user_id)
         print(user)
         udict = user.to_dict()
         udict.update(token.to_dict())
         return jsonify(udict)
-    return jsonify({error: 'invalid token supplied'})
+    return jsonify({'error': 'invalid token supplied'}), 401

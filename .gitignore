@@ -25,3 +25,5 @@ node_modules/
 /roles/*.*
 *.retry
 *.rdb
+.idea
+venv

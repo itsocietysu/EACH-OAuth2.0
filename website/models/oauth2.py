@@ -9,7 +9,7 @@ from authlib.flask.oauth2.sqla import (
     OAuth2TokenMixin,
 )
 
-from .base import Base
+from .base import db, Base
 
 
 class OAuth2Client(Base, OAuth2ClientMixin):
@@ -55,3 +55,7 @@ class OAuth2Token(Base, OAuth2TokenMixin):
 
     def to_dict(self):
         return dict(id=self.id, user_id=self.user_id, scope=self.scope)
+
+    def revoke(self):
+        with db.auto_commit():
+            db.session.delete(self)

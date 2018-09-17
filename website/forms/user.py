@@ -1,4 +1,4 @@
-from wtforms.fields import StringField, PasswordField
+from wtforms.fields import StringField, PasswordField, HiddenField, FileField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired
 from wtforms.validators import StopValidation
@@ -31,6 +31,8 @@ class UserCreationForm(BaseForm):
     name = StringField(validators=[DataRequired()])
     email = EmailField(validators=[DataRequired()])
     password = PasswordField(validators=[DataRequired()])
+    file = FileField(validators=[DataRequired()], render_kw={'accept': 'image/*', 'onchange': 'encodeImageFileAsURL(this.files[0], function(res) { document.getElementById("img").src = res; document.getElementById("hidden_img").value = res; })'})
+    hidden_img = HiddenField(validators=[DataRequired()], default='/static/images/favicon.ico')
 
     def validate_email(self, field):
         email = field.data.lower()
@@ -41,9 +43,11 @@ class UserCreationForm(BaseForm):
     def signup(self):
         name = self.name.data
         email = self.email.data.lower()
+        image = self.hidden_img.data
         user = User(name=name, email=email)
         user.password = self.password.data
         with db.auto_commit():
-            db.session.add(user)
-        login(user, True)
+            # db.session.add(user)
+            print(image)
+        # login(user, True)
         return user

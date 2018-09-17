@@ -4,7 +4,19 @@
 {% block form %}
   <form action="" method="post">
     {{ render_form(form) }}
+    <img class="form-field_img" src="/static/images/favicon.ico" alt="something" id="img" />
     <button class="btn_act">Sign Up</button>
   </form>
   <p>We won't send you any confirm emails.</p>
+  <script>
+  function encodeImageFileAsURL(file, callback) {
+      if (!file.type.includes("image/"))
+          return;
+      var reader = new FileReader();
+      reader.onloadend = function() {
+        callback(reader.result);
+      };
+      reader.readAsDataURL(file);
+  }
+  </script>
 {% endblock %}

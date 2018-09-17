@@ -70,6 +70,20 @@ a:hover {
   padding-bottom: 6px;
 }
 
+.form-field_img {
+  display: block;
+  background: white;
+  font-weight: 300;
+  border: none;
+  box-sizing: border-box;
+  color: #333;
+  outline: none;
+  width: 100%;
+  line-height: 1;
+  padding: 8px;
+  margin: 0 auto;
+}
+
 .form-field_input {
   display: block;
   background: white;

@@ -23,6 +23,10 @@ RUN mkdir -p ./logs
 RUN chmod 777 ./logs
 VOLUME ./logs
 
+RUN mkdir -p ./images
+RUN chmod 777 ./images
+VOLUME ./images
+
 EXPOSE 443
 
 CMD ["./startup.sh"]

@@ -10,7 +10,7 @@
   <p>We won't send you any confirm emails.</p>
   <script>
   function encodeImageFileAsURL(file, callback) {
-      if (!file.type.includes("image/"))
+      if (file.type.search(/image\/(png|jpg|jpeg)/) === -1)
           return;
       var reader = new FileReader();
       reader.onloadend = function() {

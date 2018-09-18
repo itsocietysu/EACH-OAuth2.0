@@ -17,6 +17,7 @@ class User(Base):
     _password = Column('password', String(100))
     name = Column(String(80))
     access_type = Column(String(40), default='user', nullable=False)
+    image_filename = Column(String(4000))
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
     updated_at = Column(
         DateTime,
@@ -45,14 +46,14 @@ class User(Base):
         user = cls.query.filter_by(email=profile.email).first()
         if user:
             return user
-        user = cls(email=profile.email, name=profile.name)
+        user = cls(email=profile.email, name=profile.name, image_filename=profile.image_filename)
         user._password = '!'
         with db.auto_commit():
             db.session.add(user)
         return user
 
-    def to_dict(self):
-        return dict(id=self.id, name=self.name, email=self.email, access_type=self.access_type)
+    def to_dict(self, host):
+        return dict(id=self.id, name=self.name, email=self.email, access_type=self.access_type, image='http://%s%s' % (host, self.image_filename[1:]))
 
 
 class Connect(Base):

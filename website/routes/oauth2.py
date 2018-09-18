@@ -81,7 +81,7 @@ def get_token_info():
     if token and token.user_id:
         user = User.query.get(token.user_id)
         print(user)
-        udict = user.to_dict()
+        udict = user.to_dict(request.host)
         udict.update(token.to_dict())
         return jsonify(udict)
     return jsonify({'error': 'invalid token supplied'}), 401

@@ -73,13 +73,10 @@ a:hover {
 .form-field_img {
   display: block;
   background: white;
-  font-weight: 300;
+  max-width: 300px;
   border: none;
   box-sizing: border-box;
-  color: #333;
   outline: none;
-  width: 100%;
-  line-height: 1;
   padding: 8px;
   margin: 0 auto;
 }

@@ -19,9 +19,14 @@ def register_hook(app):
     with open(app.config['ASSETS_FILE'], 'r') as f:
         assets = json.load(f)
 
+    with open('website/def.image.json', 'r') as f:
+        def_image = json.load(f)
+        f.close()
+
     @app.context_processor
     def register_context_processor():
         return dict(
             assets=assets,
             current_user=auth.current_user,
+            default_image=def_image['image'],
         )

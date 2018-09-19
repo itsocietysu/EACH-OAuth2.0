@@ -5,6 +5,9 @@
     <div class="inner">
       {% if current_user %}
         <p>You are signed in as <strong>{{ current_user.name }}</strong></p>
+        {% if current_user.image_filename %}
+            <p><img class="form-field_img" src="{{ current_user.image_filename }}" alt="avatar" /></p>
+        {% endif %}
         <div class="account_actions">
           <a href="{{ url_for('account.logout') }}" class="btn_act">Sign Out</a>
 		</div>

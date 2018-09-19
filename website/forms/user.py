@@ -1,5 +1,6 @@
 import base64
 import re
+import json
 
 from wtforms.fields import StringField, PasswordField, HiddenField, FileField
 from wtforms.fields.html5 import EmailField
@@ -32,12 +33,16 @@ class AuthenticateForm(BaseForm):
 
 
 class UserCreationForm(BaseForm):
+    with open('website/def.image.json', 'r') as f:
+        default_image = json.load(f)
+        f.close()
+
     name = StringField(validators=[DataRequired()])
     email = EmailField(validators=[DataRequired()])
     password = PasswordField(validators=[DataRequired()])
     file = FileField(validators=[DataRequired()], render_kw={'accept': 'image/png, image/jpeg, image/jpg',
                                                              'onchange': 'encodeImageFileAsURL(this.files[0], function(res) { document.getElementById("img").src = res; document.getElementById("hidden_img").value = res; })'})
-    hidden_img = HiddenField(validators=[DataRequired()], default='/static/images/favicon.ico')
+    hidden_img = HiddenField(validators=[DataRequired()], default=default_image)
 
     def validate_email(self, field):
         email = field.data.lower()

@@ -4,7 +4,7 @@
 {% block form %}
   <form action="" method="post">
     {{ render_form(form) }}
-    <img class="form-field_img" src="/static/images/favicon.ico" alt="something" id="img" />
+    <img class="form-field_img" src="{{ default_image }}" alt="avatar" id="img" />
     <button class="btn_act">Sign Up</button>
   </form>
   <p>We won't send you any confirm emails.</p>

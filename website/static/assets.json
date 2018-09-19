@@ -3,7 +3,8 @@
     "styles": [
       "/static/normalize.css",
       "/static/base.css",
-      "/static/layout.css"
+      "/static/layout.css",
+      "/static/jquery.Jcrop.min.css"
     ]
   }
 }

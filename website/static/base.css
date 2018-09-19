@@ -50,6 +50,7 @@ a:hover {
   border: 2px solid rgb(217, 146, 92);
   border-radius: 4px;
   transition: background-color .1s;
+  background-color: #FFFFFF;
 }
 
 .btn:hover {

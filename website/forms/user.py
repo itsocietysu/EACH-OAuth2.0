@@ -32,17 +32,24 @@ class AuthenticateForm(BaseForm):
             login(self._user, True)
 
 
-class UserCreationForm(BaseForm):
+def save_image(field):
     with open('website/def.image.json', 'r') as f:
-        default_image = json.load(f)
+        default_image = re.sub('data:image/(jpeg|png|jpg);base64,', '', json.load(f)['image'])
         f.close()
+    if not field.data:
+        resolver = MediaResolverFactory.produce('image', base64.b64decode(default_image))
+        return resolver.resolve()
+    value = re.sub('data:image/(jpeg|png|jpg);base64,', '', field.data)
+    resolver = MediaResolverFactory.produce('image', base64.b64decode(value))
+    return resolver.resolve()
 
+
+class UserCreationForm(BaseForm):
     name = StringField(validators=[DataRequired()])
     email = EmailField(validators=[DataRequired()])
     password = PasswordField(validators=[DataRequired()])
-    file = FileField(validators=[DataRequired()], render_kw={'accept': 'image/png, image/jpeg, image/jpg',
-                                                             'onchange': 'encodeImageFileAsURL(this.files[0], function(res) { document.getElementById("img").src = res; document.getElementById("hidden_img").value = res; })'})
-    hidden_img = HiddenField(validators=[DataRequired()], default=default_image)
+    image = FileField(render_kw={'accept': 'image/png, image/jpeg, image/jpg', 'onchange': 'loadImage(this)'})
+    hidden_img = HiddenField()
 
     def validate_email(self, field):
         email = field.data.lower()
@@ -50,16 +57,10 @@ class UserCreationForm(BaseForm):
         if user:
             raise StopValidation('Email has been registered.')
 
-    @staticmethod
-    def save_image(field):
-        value = re.sub('data:image/(jpeg|png|jpg);base64,', '', field.data)
-        resolver = MediaResolverFactory.produce('image', base64.b64decode(value))
-        return resolver.resolve()
-
     def signup(self):
         name = self.name.data
         email = self.email.data.lower()
-        image = self.save_image(self.hidden_img)
+        image = save_image(self.hidden_img)
         user = User(name=name, email=email, image_filename=image)
         user.password = self.password.data
         with db.auto_commit():

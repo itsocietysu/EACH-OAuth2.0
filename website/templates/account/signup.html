@@ -2,21 +2,11 @@
 {% from "macros.html" import render_form %}
 
 {% block form %}
+  <script>{% include "image_crop.js" %}</script>
   <form action="" method="post">
     {{ render_form(form) }}
-    <img class="form-field_img" src="{{ default_image }}" alt="avatar" id="img" />
-    <button class="btn_act">Sign Up</button>
+    <div id="views" class="form-field_img"></div>
+    <input type="submit" class="btn_act" value="Sign Up" />
   </form>
   <p>We won't send you any confirm emails.</p>
-  <script>
-  function encodeImageFileAsURL(file, callback) {
-      if (file.type.search(/image\/(png|jpg|jpeg)/) === -1)
-          return;
-      var reader = new FileReader();
-      reader.onloadend = function() {
-        callback(reader.result);
-      };
-      reader.readAsDataURL(file);
-  }
-  </script>
 {% endblock %}

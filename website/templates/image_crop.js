@@ -7,6 +7,16 @@ var image;
 
 var prefsize;
 
+function setDefaultImage(src) {
+    if (src && src !== "None") {
+        if (src.charAt(0) === '.')
+            src = src.slice(1);
+        image = new Image();
+        image.onload = validateImage;
+        image.src = src;
+    }
+}
+
 function loadImage(input) {
     if (input.files && input.files[0]) {
         if (input.files[0].type.search(/image\/(jpeg|png|jpg)/) === -1) {
@@ -60,6 +70,7 @@ function restartJcrop() {
         jcrop_api = this;
     });
     clearcanvas();
+    document.getElementById('hidden_img').value = canvas.toDataURL('image/jpeg');
 }
 
 function clearcanvas() {
@@ -84,6 +95,5 @@ function applyCrop() {
     canvas.width = prefsize.w;
     canvas.height = prefsize.h;
     context.drawImage(image, prefsize.x, prefsize.y, prefsize.w, prefsize.h, 0, 0, canvas.width, canvas.height);
-    document.getElementById('hidden_img').value = canvas.toDataURL('image/jpeg');
     validateImage();
 }

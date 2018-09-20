@@ -8,6 +8,7 @@
         {% if current_user.image_filename %}
             <p><img class="form-field_img" src="{{ current_user.image_filename }}" alt="avatar" /></p>
         {% endif %}
+        <a href="{{ url_for('account.edit') }}" class="btn">Edit profile</a>
         <div class="account_actions">
           <a href="{{ url_for('account.logout') }}" class="btn_act">Sign Out</a>
 		</div>

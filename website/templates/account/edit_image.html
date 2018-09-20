@@ -3,11 +3,10 @@
 
 {% block form %}
   <script>{% include "image_crop.js" %}</script>
-  <script>setTimeout(setDefaultImage("{{ url_for('static', filename='images/default_avatar.png') }}"))</script>
+  <script>setTimeout(setDefaultImage("{{ current_user.image_filename }}"))</script>
   <form action="" method="post">
     {{ render_form(form) }}
     <div id="views" class="form-field_img"></div>
-    <input type="submit" class="btn_act" value="Sign Up" />
+    <input type="submit" class="btn_act" value="Edit" />
   </form>
-  <p>We won't send you any confirm emails.</p>
 {% endblock %}

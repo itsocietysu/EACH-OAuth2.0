@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  <style>
+    .account{max-width:480px;margin-top:100px}
+  </style>
+{% endblock %}
+
+{% block nav %}{% endblock %}
+
+{% block body %}
+  <div class="account inner">
+    <h2>EACH OAuth Portal</h2>
+	<div class="account-info">
+      <a class="btn" href="/">Home</a>
+    </div>
+    <div class="account-edit">
+      <a href="{{ url_for('account.edit_base') }}" class="btn">Edit base information</a>
+      <a href="{{ url_for('account.edit_password') }}" class="btn">Edit password</a>
+      <a href="{{ url_for('account.edit_image') }}" class="btn">Edit image</a>
+    </div>
+  </div>
+{% endblock %}

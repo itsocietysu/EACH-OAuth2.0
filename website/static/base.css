@@ -167,6 +167,10 @@ a:hover {
 	margin-top: 30px;
 }
 
+.account-edit {
+	display: inline-grid;
+}
+
 #redirect_uris,
 #allowed_scopes,
 #allowed_grants {

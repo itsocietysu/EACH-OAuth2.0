@@ -1,6 +1,7 @@
 import base64
 import re
 import json
+import os
 
 from wtforms.fields import StringField, PasswordField, HiddenField, FileField
 from wtforms.fields.html5 import EmailField
@@ -48,8 +49,9 @@ class UserCreationForm(BaseForm):
     name = StringField(validators=[DataRequired()])
     email = EmailField(validators=[DataRequired()])
     password = PasswordField(validators=[DataRequired()])
-    image = FileField(render_kw={'accept': 'image/png, image/jpeg, image/jpg', 'onchange': 'loadImage(this)'})
-    hidden_img = HiddenField()
+    avatar = FileField(validators=[DataRequired()],
+                       render_kw={'accept': 'image/png, image/jpeg, image/jpg', 'onchange': 'loadImage(this)'})
+    hidden_img = HiddenField(validators=[DataRequired()])
 
     def validate_email(self, field):
         email = field.data.lower()
@@ -66,4 +68,50 @@ class UserCreationForm(BaseForm):
         with db.auto_commit():
             db.session.add(user)
         login(user, True)
+        return user
+
+
+class UserEditBaseForm(BaseForm):
+    name = StringField(validators=[DataRequired()])
+    email = EmailField(validators=[DataRequired()])
+
+    def validate_email(self, field):
+        email = field.data.lower()
+        user = User.query.filter_by(email=email).first()
+        if user:
+            raise StopValidation('Email has been registered.')
+
+    def edit(self, user):
+        user.name = self.name.data
+        user.email = self.email.data.lower()
+        with db.auto_commit():
+            db.session.add(user)
+        return user
+
+
+class UserEditPasswordForm(BaseForm):
+    old_password = PasswordField(validators=[DataRequired()])
+    new_password = PasswordField(validators=[DataRequired()])
+
+    def edit(self, user):
+        old_password = self.old_password.data
+        new_password = self.new_password.data
+        if user.check_password(old_password):
+            user.password = new_password
+        with db.auto_commit():
+            db.session.add(user)
+        return user
+
+
+class UserEditImageForm(BaseForm):
+    avatar = FileField(validators=[DataRequired()],
+                       render_kw={'accept': 'image/png, image/jpeg, image/jpg', 'onchange': 'loadImage(this)'})
+    hidden_img = HiddenField(validators=[DataRequired()])
+
+    def edit(self, user):
+        with db.auto_commit():
+            if user.image_filename and os.path.isfile(user.image_filename):
+                os.remove(user.image_filename)
+            user.image_filename = save_image(self.hidden_img)
+            db.session.add(user)
         return user

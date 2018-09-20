@@ -6,6 +6,7 @@ from ..models import OAuth2Client, OAuth2Token, User
 from ..auth import current_user
 from ..forms.auth import ConfirmForm, LoginConfirmForm
 from ..services.oauth2 import authorization, scopes, require_oauth
+from urlparse import parse_qs
 
 from flask_cors import CORS
 
@@ -67,7 +68,7 @@ def revoke_token():
 
 @bp.route('/revoke_bearer', methods=['POST'])
 def revoke_token_bearer():
-    token = OAuth2Token.query_token(request.form['access_token'])
+    token = OAuth2Token.query_token(parse_qs(request.query_string)['token'][0])
     if token:
         token.revoke()
         return jsonify(token)

@@ -72,17 +72,32 @@ def revoke_token_bearer():
     if token:
         token.revoke()
         return jsonify(token)
-    return jsonify({'error': 'invalid token supplied'}), 401
+    return jsonify({'error': 'Invalid token supplied'}), 401
 
 
 @bp.route('/tokeninfo', methods=['GET'])
 def get_token_info():
-    token = OAuth2Token.query_token(request.args['access_token'])
-    print(token)
-    if token and token.user_id:
-        user = User.query.get(token.user_id)
-        print(user)
-        udict = user.to_dict(request.host)
-        udict.update(token.to_dict())
-        return jsonify(udict)
-    return jsonify({'error': 'invalid token supplied'}), 401
+    if 'access_token' in request.args:
+        token = OAuth2Token.query_token(request.args['access_token'])
+        if token and token.user_id:
+            user = User.query.get(token.user_id)
+            udict = user.to_dict(request.host)
+            udict.update(token.to_dict())
+            return jsonify(udict)
+        return jsonify({'error': 'Invalid token supplied'}), 401
+    return jsonify({'error': 'Invalid parameters supplied'}), 400
+
+
+@bp.route('/emailinfo', methods=['GET'])
+def get_email_info():
+    if 'email' in request.args and 'access_token' in request.args:
+        token = OAuth2Token.query_token(request.args['access_token'])
+        email = request.args['email']
+        if token and token.user_id:
+            user = User.query_email(email)
+            if user:
+                udict = user.to_dict(request.host)
+                return jsonify(udict)
+            return jsonify({'error': 'Invalid email supplied'}), 404
+        return jsonify({'error': 'Invalid token supplied'}), 401
+    return jsonify({'error': 'Invalid parameters supplied'}), 400

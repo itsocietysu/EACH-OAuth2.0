@@ -42,6 +42,10 @@ class User(Base):
         return check_password_hash(self._password, raw)
 
     @classmethod
+    def query_email(cls, email):
+        return cls.query.filter_by(email=email).first()
+
+    @classmethod
     def get_or_create(cls, profile):
         user = cls.query.filter_by(email=profile.email).first()
         if user:
@@ -53,7 +57,10 @@ class User(Base):
         return user
 
     def to_dict(self, host):
-        return dict(id=self.id, name=self.name, email=self.email, access_type=self.access_type, image='http://%s%s' % (host, self.image_filename[1:]))
+        image = ''
+        if self.image_filename:
+            image = 'http://%s%s' % (host, self.image_filename[1:])
+        return dict(id=self.id, name=self.name, email=self.email, access_type=self.access_type, image=image)
 
 
 class Connect(Base):

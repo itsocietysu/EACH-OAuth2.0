@@ -32,7 +32,7 @@ class ImageResolver(MediaResolver):
 
         w, h = img.shape[1], img.shape[0]
 
-        aspect = max(w, h) * 1.0 / min(w, h)
+        aspect = float(max(w, h)) / min(w, h)
         if aspect > self.max_aspect_ratio:
             new_t = int(min(w, h) * self.max_aspect_ratio)
             dt = int((max(w, h) - new_t) / 2)
@@ -44,7 +44,7 @@ class ImageResolver(MediaResolver):
             w, h = img.shape[1], img.shape[0]
 
         if max(w, h) > self.max_image_size:
-            ds = self.max_image_size * 1.0 / max(w, h)
+            ds = float(self.max_image_size) / max(w, h)
             img = rescale(image=img, scale=ds)
 
         if min(w, h) < self.min_image_size:

@@ -1,10 +1,14 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify
 from flask import url_for, redirect, render_template
+
+from website.models import OAuth2Token, User
 from ..auth import current_user, logout as _logout
 from ..forms.user import AuthenticateForm, UserCreationForm, UserEditBaseForm, UserEditPasswordForm, UserEditImageForm
 
 from oauth2 import current_url
 from flask import request
+
+import json
 
 bp = Blueprint('account', __name__)
 
@@ -86,3 +90,32 @@ def edit_image():
         form.edit(current_user)
         return redirect(url_for('front.home'))
     return render_template('account/edit_image.html', form=form)
+
+
+@bp.route('/update', methods=['POST'])
+def update_user():
+    authorization = request.headers.get('authorization')
+    if authorization:
+        auth = authorization.split(" ")
+        if len(auth) < 2 or auth[0].lower() != 'bearer':
+            return jsonify({'error': 'Token was not provided in schema [bearer <Token>]'}), 401
+        access_token = authorization.split(" ")[1].strip()
+    else:
+        return jsonify({'error': 'Token was not provided in schema [bearer <Token>]'}), 401
+
+    token = OAuth2Token.query_token(access_token)
+    if not token:
+        return jsonify({'error': 'Invalid token supplied'}), 401
+
+    try:
+        data = json.loads(request.data)
+        user = User.update(token.user_id, data)
+
+        if not user:
+            return jsonify({'error': "User wasn't found"}), 500
+        udict = user.to_dict(request.host)
+        return jsonify(udict)
+    except ValueError:
+        return jsonify({'error': 'Invalid parameters supplied.'}), 400
+
+

@@ -1,5 +1,6 @@
 import time
 import datetime
+import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Column
 from sqlalchemy import UniqueConstraint
@@ -44,6 +45,27 @@ class User(Base):
     @classmethod
     def query_email(cls, email):
         return cls.query.filter_by(email=email).first()
+
+    @classmethod
+    def update(cls, _id, data):
+        from website.forms.user import save_image
+
+        user = cls.query.filter_by(id=_id).first()
+        if not user:
+            return None
+        if 'name' in data:
+            user.name = data['name']
+        if 'email' in data:
+            email_validation = User.query.filter_by(email=data['email']).all()
+            if not len(email_validation):
+                user.email = data['email']
+        if 'image' in data:
+            if user.image_filename and os.path.isfile(user.image_filename):
+                os.remove(user.image_filename)
+            user.image_filename = save_image(data['image'])
+        with db.auto_commit():
+            db.session.add(user)
+        return user
 
     @classmethod
     def get_or_create(cls, profile):

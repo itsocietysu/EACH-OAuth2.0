@@ -33,14 +33,14 @@ class AuthenticateForm(BaseForm):
             login(self._user, True)
 
 
-def save_image(field):
+def save_image(data):
     with open('website/def.image.json', 'r') as f:
         default_image = re.sub('data:image/(jpeg|png|jpg);base64,', '', json.load(f)['image'])
         f.close()
-    if not field.data:
+    if not data:
         resolver = MediaResolverFactory.produce('image', base64.b64decode(default_image))
         return resolver.resolve()
-    value = re.sub('data:image/(jpeg|png|jpg);base64,', '', field.data)
+    value = re.sub('data:image/(jpeg|png|jpg);base64,', '', data)
     resolver = MediaResolverFactory.produce('image', base64.b64decode(value))
     return resolver.resolve()
 
@@ -112,6 +112,6 @@ class UserEditImageForm(BaseForm):
         with db.auto_commit():
             if user.image_filename and os.path.isfile(user.image_filename):
                 os.remove(user.image_filename)
-            user.image_filename = save_image(self.hidden_img)
+            user.image_filename = save_image(self.hidden_img.data)
             db.session.add(user)
         return user

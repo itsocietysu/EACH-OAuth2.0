@@ -1,11 +1,12 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "Book Antiqua", Palatino, "Palatino Linotype", serif;
+  font-family: 'MurraySlab';
 }
 
 h1, h2, h3, strong {
   color: rgb(0, 0, 0);
+  font-family: 'No Continue';
 }
 
 a {
@@ -46,17 +47,18 @@ a:hover {
   line-height: 1.5;
   font-weight: 700;
   text-decoration: none;
-  color: rgb(66, 31, 25);
-  border: 2px solid rgb(217, 146, 92);
+  color: #000;
+  border: 2px solid #5b7bbb;
   border-radius: 4px;
   transition: background-color .1s;
   background-color: #FFFFFF;
+  font-family: 'MurraySlab-Bold';
 }
 
 .btn:hover {
   color: #fff;
-  border-color: rgb(217, 146, 92);
-  background-color: rgb(217, 146, 92);
+  border-color: #5b7bbb;
+  background-color: #5b7bbb;
 }
 
 .form-field {
@@ -69,6 +71,7 @@ a:hover {
   font-size: 12px;
   font-weight: 400;
   padding-bottom: 6px;
+  font-family: 'MurraySlab-Bold';
 }
 
 .form-field_img {
@@ -127,12 +130,12 @@ a:hover {
 
 .btn_act {
    padding: .6em 1.2em;
-   border: 1px solid rgb(255, 178, 139);
+   border: 1px solid #87a8e6;
    border-radius: 20px; 
    -webkit-border-radius: 20px;
    -moz-border-radius: 20px;
    -khtml-border-radius: 20px; 
-   background: rgb(255, 178, 139);
+   background: #87a8e6;
    outline: none; 
    cursor: pointer;
    color: white; 
@@ -141,6 +144,7 @@ a:hover {
    font-weight: 700;
    margin: 1em;
    text-decoration: none;
+   font-family: 'MurraySlab';
 }
 
 .btn_act:hover {
@@ -152,7 +156,7 @@ a:hover {
    background: white;
    outline: none; 
    cursor: pointer;
-   color: rgb(255, 178, 139); 
+   color: #87a8e6;
    font-size: 1em;
    font-weight: 700;
    margin: 1em;
@@ -160,7 +164,7 @@ a:hover {
 }
 
 .btn_reg:hover {
-  color: rgb(255, 178, 139);
+  color: #87a8e6;
 }
 
 .account_actions {

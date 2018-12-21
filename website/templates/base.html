@@ -12,6 +12,35 @@
   <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/jquery.Jcrop.min.js') }}"></script>
   <script>{% include "ga.js" %}</script>
+  <style>
+      @font-face {
+        font-family: 'No Continue';
+        font-weight: normal;
+        font-style: normal;
+        src: url("{{ url_for('static', filename='fonts/header/header.woff2') }}") format('woff2');
+        src: url("{{ url_for('static', filename='fonts/header/header.woff') }}") format('woff');
+        src: url("{{ url_for('static', filename='fonts/header/header.ttf') }}")  format('truetype');
+      }
+
+      @font-face {
+        font-family: 'MurraySlab-Bold';
+        font-weight: bold;
+        font-style: normal;
+        src: url("{{ url_for('static', filename='fonts/title/title.woff2') }}") format('woff2');
+        src: url("{{ url_for('static', filename='fonts/title/title.woff') }}") format('woff');
+        src: url("{{ url_for('static', filename='fonts/title/title.ttf') }}")  format('truetype');
+      }
+
+      @font-face {
+        font-family: 'MurraySlab';
+        font-weight: normal;
+        font-style: normal;
+        src: url("{{ url_for('static', filename='fonts/text/text.woff2') }}") format('woff2');
+        src: url("{{ url_for('static', filename='fonts/text/text.woff') }}") format('woff');
+        src: url("{{ url_for('static', filename='fonts/text/text.ttf') }}")  format('truetype');
+      }
+    </style>
+
   {% block extrahead %}{% endblock %}
 </head>
 <body>

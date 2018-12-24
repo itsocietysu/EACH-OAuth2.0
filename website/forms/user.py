@@ -77,15 +77,13 @@ class UserEditBaseForm(BaseForm):
     name = StringField(_l('Name'), validators=[DataRequired()])
     email = EmailField(_l('Email'), validators=[DataRequired()])
 
-    user = None
-
-    def __init__(self, formdata=None, obj=None, prefix='', data=None, meta=None, **kwargs):
-        BaseForm.__init__(self, formdata=formdata, obj=obj, prefix=prefix, data=data, meta=meta, **kwargs)
-        self.user = obj
+    def __init__(self, *args, **kwargs):
+        super(UserEditBaseForm, self).__init__(*args, **kwargs)
+        self._user = kwargs['obj']
 
     def validate_email(self, field):
         email = field.data.lower()
-        if email != self.user.email:
+        if email != self._user.email:
             user = User.query.filter_by(email=email).first()
             if user:
                 raise StopValidation(_l('Email has been registered.'))

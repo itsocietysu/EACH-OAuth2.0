@@ -1,0 +1,194 @@
+# Russian translations for PROJECT.
+# Copyright (C) 2018 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-12-24 19:45+0300\n"
+"PO-Revision-Date: 2018-12-25 00:11+0300\n"
+"Last-Translator: \n"
+"Language: ru\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#: website/templates/account/base.html:13
+#: website/templates/account/edit.html:13 website/templates/base.html:50
+msgid "EACH OAuth Portal"
+msgstr "Портал авторизации EACH"
+
+#: website/templates/account/base.html:15
+#: website/templates/account/edit.html:15 website/templates/base.html:52
+msgid "Home"
+msgstr "Домой"
+
+#: website/templates/home.html:7
+msgid "You are signed in as"
+msgstr "Вы зашли как"
+
+#: website/templates/home.html:11
+msgid "Edit profile"
+msgstr "Редактировать профиль"
+
+#: website/templates/home.html:13
+msgid "Sign Out"
+msgstr "Выйти"
+
+#: website/templates/home.html:17
+msgid "Apps"
+msgstr "Приложения"
+
+#: website/templates/home.html:21
+msgid "You need to sign in."
+msgstr "Вы должны войти."
+
+#: website/templates/home.html:23
+msgid "Sign in"
+msgstr "Войти"
+
+#: website/templates/home.html:24
+msgid "Sign up"
+msgstr "Зарегистрироваться"
+
+#: website/templates/account/authorize.html:5
+msgid "Authorization"
+msgstr "Авторизация"
+
+#: website/templates/account/authorize.html:6
+msgid "Client"
+msgstr "Клиент"
+
+#: website/templates/account/authorize.html:6
+msgid "is requesting"
+msgstr "запрашивает"
+
+#: website/templates/account/authorize.html:9
+msgid "Access to public resources."
+msgstr "Доступ к публичным ресурсам."
+
+#: website/templates/account/authorize.html:17
+msgid "Authorize"
+msgstr "Авторизоваться"
+
+#: website/templates/account/authorize.html:20
+msgid "not registered yet?"
+msgstr "ещё не зарегистрированы?"
+
+#: website/templates/account/edit.html:18
+msgid "Edit base information"
+msgstr "Изменить основную информацию"
+
+#: website/templates/account/edit.html:19
+msgid "Edit password"
+msgstr "Изменить пароль"
+
+#: website/templates/account/edit.html:20
+msgid "Edit image"
+msgstr "Изменить аватар"
+
+#: website/templates/account/edit_base.html:7
+#: website/templates/account/edit_image.html:12
+msgid "Edit"
+msgstr "Изменить"
+
+#: website/templates/account/edit_image.html:10
+#: website/templates/account/signup.html:10
+msgid "Crop"
+msgstr "Обрезать"
+
+#: website/templates/account/login.html:7
+msgid "Sign In"
+msgstr "Войти"
+
+#: website/templates/account/signup.html:12
+msgid "Sign Up"
+msgstr "Зарегистрироваться"
+
+#: website/templates/account/signup.html:14
+msgid "We won't send you any confirm emails."
+msgstr "Мы не будем отправлять подтверждение на эл. адрес."
+
+#: website/templates/client/create.html:9
+msgid "Create"
+msgstr "Создать"
+
+#: website/templates/client/edit.html:9
+msgid "Update"
+msgstr "Обновить"
+
+#: website/templates/client/list.html:6
+msgid "New OAuth App"
+msgstr "Новое приложение авторизации"
+
+#: website/templates/client/list.html:8
+msgid "OAuth Apps"
+msgstr "Приложения авторизации"
+
+#: website/templates/client/list.html:16
+msgid "Client ID"
+msgstr "ID клиента"
+
+#: website/templates/client/list.html:18
+msgid "Client Secret"
+msgstr "Секрет клиента"
+
+#: website/templates/client/list.html:20
+msgid "Scopes"
+msgstr "Scopes"
+
+#: website/templates/client/list.html:21
+msgid "Grants"
+msgstr "Grants"
+
+msgid "Email"
+msgstr "Эл. адрес"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Email has been registered."
+msgstr "Эл. адрес был зарегистрирован."
+
+msgid "Email or password is invalid."
+msgstr "Эл. адрес или пароль неверны."
+
+msgid "Client name"
+msgstr "Название клиента"
+
+msgid "Website"
+msgstr "Вебсайт"
+
+msgid "Confidential Client"
+msgstr "Конфиденциальный клиент"
+
+msgid "Redirect URIs"
+msgstr "Возможные URI перенаправления"
+
+msgid "Default redirect URI"
+msgstr "URI перенаправления по умолчанию"
+
+msgid "Allowed scopes"
+msgstr "Разрешённые scopes"
+
+msgid "Allowed grants"
+msgstr "Разрешённые grants"
+
+msgid "Name"
+msgstr "Имя"
+
+msgid "Avatar"
+msgstr "Аватар"
+
+msgid "Old password"
+msgstr "Старый пароль"
+
+msgid "New password"
+msgstr "Новый пароль"

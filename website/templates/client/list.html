@@ -3,9 +3,9 @@
 {% block body %}
   <section class="section">
     <div class="inner">
-      <a href="{{ url_for('client.create_client', version=2) }}" class="btn">New OAuth App</a>
+      <a href="{{ url_for('client.create_client', version=2) }}" class="btn">{{ _('New OAuth App') }}</a>
       <div class="divide"></div>
-      <h2>OAuth Apps</h2>
+      <h2>{{ _('OAuth Apps') }}</h2>
       {% for client in oauth2_clients %}
         <div class="client">
           <a href="{{ url_for('client.edit_client', version=2, client_id=client.client_id) }}" class="btn">{{ client.name }}</a>
@@ -13,12 +13,12 @@
             <p>{{ client.website }}</p>
           {% endif %}
           <ul>
-            <li>Client ID: <strong>{{ client.client_id }}</strong></li>
+            <li>{{ _('Client ID') }}: <strong>{{ client.client_id }}</strong></li>
             {% if client.client_secret %}
-              <li>Client Secret: <strong>{{ client.client_secret }}</strong></li>
+              <li>{{ _('Client Secret') }}: <strong>{{ client.client_secret }}</strong></li>
             {% endif %}
-            <li>Scopes: {{ client.allowed_scopes }}</li>
-            <li>Grants: {{ client.allowed_grants }}</li>
+            <li>{{ _('Scopes') }}: {{ client.allowed_scopes }}</li>
+            <li>{{ _('Grants') }}: {{ client.allowed_grants }}</li>
           </ul>
         </div>
       {% endfor %}

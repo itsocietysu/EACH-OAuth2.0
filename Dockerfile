@@ -13,6 +13,7 @@ COPY conf/ 		./conf/
 
 COPY wsgi.py 		./wsgi.py
 COPY app.py 		./app.py
+COPY babel.cfg      ./babel.cfg
 COPY ansible.cfg 	./ansible.cfg
 
 COPY startup.sh         ./startup.sh
@@ -28,5 +29,7 @@ RUN chmod 777 ./images
 VOLUME ./images
 
 EXPOSE 443
+
+RUN pybabel compile -d website/translations
 
 CMD ["./startup.sh"]

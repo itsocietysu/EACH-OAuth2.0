@@ -12,10 +12,12 @@ from ..models import db, User
 from ..auth import login
 from ..media_resolver.mediaresolverfactory import MediaResolverFactory
 
+from flask_babel import lazy_gettext as _l
+
 
 class AuthenticateForm(BaseForm):
-    email = EmailField(validators=[DataRequired()])
-    password = PasswordField(validators=[DataRequired()])
+    email = EmailField(_l('Email'), validators=[DataRequired()])
+    password = PasswordField(_l('Password'), validators=[DataRequired()])
 
     def __init__(self, *args, **kwargs):
         super(AuthenticateForm, self).__init__(*args, **kwargs)
@@ -25,7 +27,7 @@ class AuthenticateForm(BaseForm):
         email = self.email.data.lower()
         user = User.query.filter_by(email=email).first()
         if not user or not user.check_password(field.data):
-            raise StopValidation('Email or password is invalid.')
+            raise StopValidation(_l('Email or password is invalid.'))
         self._user = user
 
     def login(self):
@@ -46,10 +48,10 @@ def save_image(data):
 
 
 class UserCreationForm(BaseForm):
-    name = StringField(validators=[DataRequired()])
-    email = EmailField(validators=[DataRequired()])
-    password = PasswordField(validators=[DataRequired()])
-    avatar = FileField(validators=[DataRequired()],
+    name = StringField(_l('Name'), validators=[DataRequired()])
+    email = EmailField(_l('Email'), validators=[DataRequired()])
+    password = PasswordField(_l('Password'), validators=[DataRequired()])
+    avatar = FileField(_l('Avatar'),
                        render_kw={'accept': 'image/png, image/jpeg, image/jpg', 'onchange': 'loadImage(this)'})
     hidden_img = HiddenField(validators=[DataRequired()])
 
@@ -57,7 +59,7 @@ class UserCreationForm(BaseForm):
         email = field.data.lower()
         user = User.query.filter_by(email=email).first()
         if user:
-            raise StopValidation('Email has been registered.')
+            raise StopValidation(_l('Email has been registered.'))
 
     def signup(self):
         name = self.name.data
@@ -72,8 +74,8 @@ class UserCreationForm(BaseForm):
 
 
 class UserEditBaseForm(BaseForm):
-    name = StringField(validators=[DataRequired()])
-    email = EmailField(validators=[DataRequired()])
+    name = StringField(_l('Name'), validators=[DataRequired()])
+    email = EmailField(_l('Email'), validators=[DataRequired()])
 
     user = None
 
@@ -86,7 +88,7 @@ class UserEditBaseForm(BaseForm):
         if email != self.user.email:
             user = User.query.filter_by(email=email).first()
             if user:
-                raise StopValidation('Email has been registered.')
+                raise StopValidation(_l('Email has been registered.'))
 
     def edit(self, user):
         user.name = self.name.data
@@ -97,8 +99,8 @@ class UserEditBaseForm(BaseForm):
 
 
 class UserEditPasswordForm(BaseForm):
-    old_password = PasswordField(validators=[DataRequired()])
-    new_password = PasswordField(validators=[DataRequired()])
+    old_password = PasswordField(_l('Old password'), validators=[DataRequired()])
+    new_password = PasswordField(_l('New password'), validators=[DataRequired()])
 
     def edit(self, user):
         old_password = self.old_password.data
@@ -111,7 +113,7 @@ class UserEditPasswordForm(BaseForm):
 
 
 class UserEditImageForm(BaseForm):
-    avatar = FileField(validators=[DataRequired()],
+    avatar = FileField(_l('Avatar'),
                        render_kw={'accept': 'image/png, image/jpeg, image/jpg', 'onchange': 'loadImage(this)'})
     hidden_img = HiddenField(validators=[DataRequired()])
 

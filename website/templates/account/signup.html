@@ -6,8 +6,10 @@
   <script>setTimeout(setDefaultImage("{{ url_for('static', filename='images/default_avatar.png') }}"))</script>
   <form action="" method="post">
     {{ render_form(form) }}
-    <div id="views" class="form-field_img"></div>
-    <input type="submit" class="btn_act" value="Sign Up" />
+    <div id="views" class="form-field_img">
+      <input type="button" id="cropbutton" class="btn" onclick="applyCrop()" value="{{ _('Crop') }}">
+    </div>
+    <button type="submit" class="btn_act">{{ _('Sign Up') }}</button>
   </form>
-  <p>We won't send you any confirm emails.</p>
+  <p>{{ _("We won't send you any confirm emails.") }}</p>
 {% endblock %}

@@ -11,6 +11,8 @@ from .base import BaseForm
 from ..services.oauth2 import scopes
 from ..models import db, OAuth2Client
 
+from flask_babel import lazy_gettext as _l
+
 SCOPES = [(k, k) for k in scopes]
 GRANTS = [
     ('authorization_code', 'Authorization Code'),
@@ -33,13 +35,13 @@ class OAuth2ClientWrapper(object):
 
 
 class Client2Form(BaseForm):
-    name = StringField(validators=[DataRequired()])
-    website = URLField()
-    is_confidential = BooleanField('Confidential Client')
-    redirect_uris = TextAreaField()
-    default_redirect_uri = URLField()
-    allowed_scopes = SelectMultipleField(choices=SCOPES)
-    allowed_grants = SelectMultipleField(choices=GRANTS)
+    name = StringField(_l('Client name'), validators=[DataRequired()])
+    website = URLField(_l('Website'))
+    is_confidential = BooleanField(_l('Confidential Client'))
+    redirect_uris = TextAreaField(_l('Redirect URIs'))
+    default_redirect_uri = URLField(_l('Default redirect URI'))
+    allowed_scopes = SelectMultipleField(_l('Allowed scopes'), choices=SCOPES)
+    allowed_grants = SelectMultipleField(_l('Allowed grants'), choices=GRANTS)
 
     def update(self, client):
         client.name = self.name.data

@@ -4,24 +4,24 @@
   <section class="section">
     <div class="inner">
       {% if current_user %}
-        <p>You are signed in as <strong>{{ current_user.name }}</strong></p>
+        <p>{{ _('You are signed in as') }} <strong>{{ current_user.name }}</strong></p>
         {% if current_user.image_filename %}
-            <p><img class="form-field_img" src="{{ current_user.image_filename }}" alt="avatar" /></p>
+            <p><img class="form-field_img" src="{{ current_user.image_filename }}" alt="{{ _('Avatar') }}" /></p>
         {% endif %}
-        <a href="{{ url_for('account.edit') }}" class="btn">Edit profile</a>
+        <a href="{{ url_for('account.edit') }}" class="btn">{{ _('Edit profile') }}</a>
         <div class="account_actions">
-          <a href="{{ url_for('account.logout') }}" class="btn_act">Sign Out</a>
+          <a href="{{ url_for('account.logout') }}" class="btn_act">{{ _('Sign Out') }}</a>
 		</div>
 		{% if current_user.access_type == "admin" %}
 		  <div class="account_actions">
-            <a href="{{ url_for('client.list_clients') }}" class="btn">Apps</a>
+            <a href="{{ url_for('client.list_clients') }}" class="btn">{{ _('Apps') }}</a>
 		  </div>
 		{% endif %}
       {% else %}
-        <p>You need to sign in.</p>
+        <p>{{ _('You need to sign in.') }}</p>
         <div class="account_actions">
-          <a href="{{ url_for('account.login') }}" class="btn">Sign in</a>
-          <a href="{{ url_for('account.signup') }}" class="btn">Sign up</a>
+          <a href="{{ url_for('account.login') }}" class="btn">{{ _('Sign in') }}</a>
+          <a href="{{ url_for('account.signup') }}" class="btn">{{ _('Sign up') }}</a>
         </div>
       {% endif %}
     </div>

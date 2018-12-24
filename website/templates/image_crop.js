@@ -50,9 +50,7 @@ function restartJcrop() {
     if (jcrop_api != null) {
         jcrop_api.destroy();
     }
-    $("#views").empty();
-    $("#views").append("<canvas id=\"canvas\">");
-    $("#views").append("<input type=\"button\" id=\"cropbutton\" value=\"Crop\" class=\"btn\" onclick=\"applyCrop()\">");
+    $("#cropbutton").before("<canvas id=\"canvas\">");
     canvas = $("#canvas")[0];
     context = canvas.getContext("2d");
     canvas.width = image.width;

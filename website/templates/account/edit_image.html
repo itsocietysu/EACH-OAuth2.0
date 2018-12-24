@@ -2,11 +2,13 @@
 {% from "macros.html" import render_form %}
 
 {% block form %}
-  <script>{% include "image_crop.js" %}</script>
+<script>{% include "image_crop.js" %}</script>
   <script>setTimeout(setDefaultImage("{{ current_user.image_filename }}"))</script>
   <form action="" method="post">
     {{ render_form(form) }}
-    <div id="views" class="form-field_img"></div>
-    <input type="submit" class="btn_act" value="Edit" />
+    <div id="views" class="form-field_img">
+      <input type="button" id="cropbutton" class="btn" onclick="applyCrop()" value="{{ _('Crop') }}">
+    </div>
+    <button type="submit" class="btn_act">{{ _('Edit') }}</button>
   </form>
 {% endblock %}

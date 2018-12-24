@@ -2,11 +2,11 @@
 {% from "macros.html" import render_form %}
 
 {% block form %}
-  <h2>Authorization</h2>
-  <p>Client <strong>{{ client.name }}</strong> is requesting:</p>
+  <h2>{{ _('Authorization') }}</h2>
+  <p>{{ _('Client') }} <strong>{{ client.name }}</strong> {{ _('is requesting') }}:</p>
   {% if scopes is defined and grant.scopes %}
     <ul>
-      <li>Access to public resources.</li>
+      <li>{{ _('Access to public resources.') }}</li>
       {% for scope in grant.scopes %}
         <li>{{ scopes[scope] }}</li>
       {% endfor %}
@@ -14,10 +14,10 @@
   {% endif %}
   <form action="" method="post">
     {{ render_form(form) }}
-    <button class="btn_act">Authorize</button>
+    <button class="btn_act">{{ _('Authorize') }}</button>
 	{% if not current_user %}
 	  <div class="account_actions">
-	    <a class="btn_reg" href="{{ url_for('account.signup') }}">not registered yet?</a>
+	    <a class="btn_reg" href="{{ url_for('account.signup') }}">{{ _('not registered yet?') }}</a>
 	  </div>
 	{% endif %}
   </form>

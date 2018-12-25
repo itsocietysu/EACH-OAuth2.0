@@ -1,9 +1,10 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, abort
 from flask import url_for, redirect, render_template
 
 from website.models import OAuth2Token, User
 from ..auth import current_user, logout as _logout
-from ..forms.user import AuthenticateForm, UserCreationForm, UserEditBaseForm, UserEditPasswordForm, UserEditImageForm
+from ..forms.user import AuthenticateForm, UserCreationForm, UserEditBaseForm, UserEditPasswordForm, \
+    UserEditImageForm, UserEditAccessTypeForm
 
 from oauth2 import current_url
 from flask import request
@@ -90,6 +91,20 @@ def edit_image():
         form.edit(current_user)
         return redirect(url_for('front.home'))
     return render_template('account/edit_image.html', form=form)
+
+
+@bp.route('/edit/access_type', methods=['GET', 'POST'])
+def edit_access_type():
+    if not current_user:
+        return redirect(request.referrer)
+    if current_user.access_type == 'admin':
+        form = UserEditAccessTypeForm()
+        if form.validate_on_submit():
+            form.edit(current_user)
+            return redirect(url_for('front.home'))
+        return render_template('account/edit_base.html', form=form)
+    else:
+        abort(404)
 
 
 @bp.route('/update', methods=['POST'])

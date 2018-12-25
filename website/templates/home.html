@@ -16,6 +16,9 @@
 		  <div class="account_actions">
             <a href="{{ url_for('client.list_clients') }}" class="btn">{{ _('Apps') }}</a>
 		  </div>
+          <div class="account_actions">
+            <a class="btn" href="{{ url_for('account.edit_access_type') }}">{{ _('Edit access type') }}</a>
+		  </div>
 		{% endif %}
       {% else %}
         <p>{{ _('You need to sign in.') }}</p>

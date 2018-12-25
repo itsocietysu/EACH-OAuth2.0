@@ -122,3 +122,26 @@ class UserEditImageForm(BaseForm):
             user.image_filename = save_image(self.hidden_img.data)
             db.session.add(user)
         return user
+
+
+class UserEditAccessTypeForm(BaseForm):
+    email = EmailField(_l('Email'), validators=[DataRequired()])
+
+    _user = None
+
+    def validate_email(self, field):
+        email = field.data.lower()
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            raise StopValidation(_l("Email hasn't been found."))
+        self._user = user
+
+    def edit(self, user):
+        with db.auto_commit():
+            if self._user and user.email != self._user.email:
+                if self._user.access_type == 'user':
+                    self._user.access_type = 'admin'
+                elif self._user.access_type == 'admin':
+                    self._user.access_type = 'user'
+                db.session.add(self._user)
+        return user

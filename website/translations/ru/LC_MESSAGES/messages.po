@@ -46,6 +46,10 @@ msgstr "Выйти"
 msgid "Apps"
 msgstr "Приложения"
 
+#: website/templates/home.html:20
+msgid "Edit access type"
+msgstr "Изменить права доступа"
+
 #: website/templates/home.html:21
 msgid "You need to sign in."
 msgstr "Вы должны войти."
@@ -166,6 +170,9 @@ msgstr "Эл. адрес был зарегистрирован."
 
 msgid "Email or password is invalid."
 msgstr "Эл. адрес или пароль неверны."
+
+msgid "Email hasn't been found."
+msgstr "Эл. адрес не был найден"
 
 msgid "Client name"
 msgstr "Название клиента"

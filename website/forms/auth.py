@@ -13,7 +13,7 @@ from flask_babel import lazy_gettext as _l
 
 
 class ConfirmForm(BaseForm):
-    confirm = BooleanField()
+    confirm = BooleanField(_l('Confirm'))
 
 
 class LoginConfirmForm(ConfirmForm):

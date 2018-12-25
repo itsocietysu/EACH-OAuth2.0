@@ -22,6 +22,8 @@ from ..models import (
     OAuth2Token,
 )
 
+from flask_babel import lazy_gettext as _l
+
 
 class AuthorizationCodeGrant(_AuthorizationCodeGrant):
     def create_authorization_code(self, client, user, request):
@@ -147,7 +149,7 @@ authorization.register_revoke_token_endpoint(RevocationEndpoint)
 
 # scopes definition
 scopes = {
-    'email': 'Access to your email address.',
+    'email': _l('Access to your email address.'),
     'connects': 'Access to your connected networks.'
 }
 

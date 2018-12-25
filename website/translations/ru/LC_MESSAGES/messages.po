@@ -74,6 +74,10 @@ msgstr "запрашивает"
 msgid "Access to public resources."
 msgstr "Доступ к публичным ресурсам."
 
+#: website/templates/account/authorize.html:11
+msgid "Access to your email address."
+msgstr "Доступ к Вашему эл. адресу."
+
 #: website/templates/account/authorize.html:17
 msgid "Authorize"
 msgstr "Авторизоваться"
@@ -147,6 +151,9 @@ msgstr "Scopes"
 #: website/templates/client/list.html:21
 msgid "Grants"
 msgstr "Grants"
+
+msgid "Confirm"
+msgstr "Подтвердить"
 
 msgid "Email"
 msgstr "Эл. адрес"

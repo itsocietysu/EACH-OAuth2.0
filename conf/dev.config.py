@@ -1,4 +1,4 @@
-SECRET_KEY='itseachsecret'
+SECRET_KEY = 'itseachsecret'
 
 SQLALCHEMY_DATABASE_URI = 'postgresql://each:Ellesmera2006@185.122.59.110:5434/OAuth_db'
 OAUTH_CACHE_DIR = '_cache'
@@ -16,3 +16,12 @@ FACEBOOK_CLIENT_KEY = ''
 FACEBOOK_CLIENT_SECRET = ''
 
 LANGUAGES = ['en', 'ru']
+
+ADMINS = ['']
+
+MAIL_SERVER = 'smtp.gmail.com'
+MAIL_PORT = 465
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
+MAIL_USERNAME = ''
+MAIL_PASSWORD = ''

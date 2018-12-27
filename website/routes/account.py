@@ -1,10 +1,12 @@
-from flask import Blueprint, jsonify, abort
+from flask import Blueprint, jsonify, abort, flash
 from flask import url_for, redirect, render_template
 
 from website.models import OAuth2Token, User
 from ..auth import current_user, logout as _logout
 from ..forms.user import AuthenticateForm, UserCreationForm, UserEditBaseForm, UserEditPasswordForm, \
-    UserEditImageForm, UserEditAccessTypeForm
+    UserEditImageForm, UserEditAccessTypeForm, ResetPasswordRequestForm, ResetPasswordForm
+
+from flask_babel import lazy_gettext as _l
 
 from oauth2 import current_url
 from flask import request
@@ -95,16 +97,13 @@ def edit_image():
 
 @bp.route('/edit/access_type', methods=['GET', 'POST'])
 def edit_access_type():
-    if not current_user:
-        return redirect(request.referrer)
-    if current_user.access_type == 'admin':
-        form = UserEditAccessTypeForm()
-        if form.validate_on_submit():
-            form.edit(current_user)
-            return redirect(url_for('front.home'))
-        return render_template('account/edit_base.html', form=form)
-    else:
+    if not current_user or current_user.access_type != 'admin':
         abort(404)
+    form = UserEditAccessTypeForm()
+    if form.validate_on_submit():
+        form.edit(current_user)
+        return redirect(url_for('front.home'))
+    return render_template('account/edit_base.html', form=form)
 
 
 @bp.route('/update', methods=['POST'])
@@ -133,4 +132,29 @@ def update_user():
     except ValueError:
         return jsonify({'error': 'Invalid parameters supplied.'}), 400
 
+
+@bp.route('/reset_password', methods=['GET', 'POST'])
+def reset_password_request():
+    if current_user:
+        return redirect(request.referrer)
+    form = ResetPasswordRequestForm()
+    if form.validate_on_submit():
+        form.request()
+        flash(_l('Check your email for the instructions to reset your password'))
+    return render_template('account/reset_password.html', form=form)
+
+
+@bp.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user:
+        return redirect(request.referrer)
+    user = User.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for('front.home'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        form.reset(user)
+        flash(_l('Your password has been reset.'))
+        return redirect(url_for('account.login'))
+    return render_template('account/reset_password.html', form=form)
 

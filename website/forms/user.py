@@ -5,8 +5,10 @@ import os
 
 from wtforms.fields import StringField, PasswordField, HiddenField, FileField
 from wtforms.fields.html5 import EmailField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Email
 from wtforms.validators import StopValidation
+
+from ..email import send_password_reset_email
 from .base import BaseForm
 from ..models import db, User
 from ..auth import login
@@ -145,3 +147,28 @@ class UserEditAccessTypeForm(BaseForm):
                     self._user.access_type = 'user'
                 db.session.add(self._user)
         return user
+
+
+class ResetPasswordRequestForm(BaseForm):
+    email = StringField(_l('Email'), validators=[DataRequired(), Email()])
+
+    _user = None
+
+    def validate_email(self, field):
+        email = field.data.lower()
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            raise StopValidation(_l("Email hasn't been found."))
+        self._user = user
+
+    def request(self):
+        send_password_reset_email(self._user)
+
+
+class ResetPasswordForm(BaseForm):
+    password = PasswordField(_l('Password'), validators=[DataRequired()])
+
+    def reset(self, user):
+        user.password = self.password.data
+        with db.auto_commit():
+            db.session.add(user)

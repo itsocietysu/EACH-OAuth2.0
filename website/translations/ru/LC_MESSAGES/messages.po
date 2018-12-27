@@ -116,6 +116,14 @@ msgstr "Обрезать"
 msgid "Sign In"
 msgstr "Войти"
 
+#: website/templates/account/login.html:9
+msgid "forgot password?"
+msgstr "забыли пароль?"
+
+#: website/templates/account/reset_password.html:7
+msgid "Reset"
+msgstr "Восстановить"
+
 #: website/templates/account/signup.html:12
 msgid "Sign Up"
 msgstr "Зарегистрироваться"
@@ -206,3 +214,9 @@ msgstr "Старый пароль"
 
 msgid "New password"
 msgstr "Новый пароль"
+
+msgid "Check your email for the instructions to reset your password"
+msgstr "Проверьте свою эл. почту для получения инструкций по восстановлению пароля"
+
+msgid "Your password has been reset."
+msgstr "Ваш пароль был изменён."

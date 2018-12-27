@@ -44,6 +44,13 @@
   {% block extrahead %}{% endblock %}
 </head>
 <body>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <div style="text-align: center" >{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
 {% block nav %}
   <header class="head" style="margin-top:80px">
     <div class="inner">

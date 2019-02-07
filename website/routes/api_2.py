@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask import jsonify
 from authlib.flask.oauth2 import current_token
 from ..models import db, User, Connect
@@ -11,7 +11,7 @@ bp = Blueprint('api_2', __name__)
 @require_oauth()
 def user_profile():
     user = User.query.get(current_token.user_id)
-    return jsonify(user.to_dict())
+    return jsonify(user.to_dict(request.host))
 
 
 @bp.route('/me/email')

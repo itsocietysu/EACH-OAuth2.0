@@ -66,7 +66,7 @@ class UserCreationForm(BaseForm):
     def signup(self):
         name = self.name.data
         email = self.email.data.lower()
-        image = save_image(self.hidden_img)
+        image = save_image(self.hidden_img.data)
         user = User(name=name, email=email, image_filename=image)
         user.password = self.password.data
         with db.auto_commit():

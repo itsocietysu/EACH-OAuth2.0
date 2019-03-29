@@ -44,11 +44,13 @@ def authorize():
             grant_user = current_user
         else:
             grant_user = None
-        app.logger.info("calling lib function")
-        return authorization.create_authorization_response(grant_user)
+        app.logger.info("calling lib function 'create_authorization_response'")
+        ret = authorization.create_authorization_response(grant_user)
+        app.logger.info("return")
+        return ret
     try:
         app.logger.info("not submit")
-        app.logger.info("calling lib function")
+        app.logger.info("calling lib function 'validate_authorization_request'")
         grant = authorization.validate_authorization_request()
     except OAuth2Error as error:
         # TODO: add an error page
@@ -71,8 +73,10 @@ def issue_token():
     from app import app
 
     app.logger.info("method oauth2/token")
-    app.logger.info("calling lib function")
-    return authorization.create_token_response()
+    app.logger.info("calling lib function 'create_token_response'")
+    ret = authorization.create_token_response()
+    app.logger.info("return")
+    return ret
 
 
 @bp.route('/revoke', methods=['POST'])

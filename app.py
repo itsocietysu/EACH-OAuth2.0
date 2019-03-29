@@ -4,6 +4,7 @@ from flask_babel import Babel, request
 from flask_mail import Mail
 from website import create_app
 from website.models import db
+import logging
 
 is_dev = bool(os.getenv('FLASK_DEBUG'))
 
@@ -34,3 +35,13 @@ def get_locale():
 @app.cli.command()
 def initdb():
     db.create_all()
+
+
+@app.before_first_request
+def setup_logging():
+    if not app.debug:
+        handler = logging.StreamHandler()
+        handler.setFormatter(logging.Formatter(
+            '[%(asctime)s] %(levelname)s in %(pathname)s in line %(lineno)d: %(message)s'))
+        app.logger.addHandler(handler)
+        app.logger.setLevel(logging.INFO)

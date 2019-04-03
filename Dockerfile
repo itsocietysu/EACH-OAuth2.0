@@ -13,7 +13,7 @@ COPY conf/ 		./conf/
 
 COPY wsgi.py 		./wsgi.py
 COPY app.py 		./app.py
-COPY babel.cfg      ./babel.cfg
+COPY babel.cfg          ./babel.cfg
 COPY ansible.cfg 	./ansible.cfg
 
 COPY startup.sh         ./startup.sh

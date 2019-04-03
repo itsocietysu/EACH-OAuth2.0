@@ -10,13 +10,7 @@ from urlparse import parse_qs
 
 from flask_cors import CORS
 
-curr_url = None
-
-
-def current_url():
-    global curr_url
-    return curr_url
-
+from app import app
 
 bp = Blueprint('oauth2', __name__)
 CORS(bp)
@@ -24,9 +18,6 @@ CORS(bp)
 
 @bp.route('/authorize', methods=['GET', 'POST'])
 def authorize():
-    from app import app
-
-    global curr_url
     curr_url = '/oauth2/authorize?' + request.query_string
     app.logger.info("method oauth2/authorize")
 
@@ -70,8 +61,6 @@ def authorize():
 
 @bp.route('/token', methods=['POST'])
 def issue_token():
-    from app import app
-
     app.logger.info("method oauth2/token")
     app.logger.info("calling lib function 'create_token_response'")
     ret = authorization.create_token_response()
@@ -86,8 +75,6 @@ def revoke_token():
 
 @bp.route('/revoke_bearer', methods=['POST'])
 def revoke_token_bearer():
-    from app import app
-
     app.logger.info("method oauth2/revoke_bearer")
     app.logger.info("query token")
     token = OAuth2Token.query_token(parse_qs(request.query_string)['token'][0])
@@ -101,8 +88,6 @@ def revoke_token_bearer():
 
 @bp.route('/tokeninfo', methods=['GET'])
 def get_token_info():
-    from app import app
-
     app.logger.info("method oauth2/tokeninfo")
     if 'access_token' in request.args:
         app.logger.info("query token")
@@ -120,8 +105,6 @@ def get_token_info():
 
 @bp.route('/emailinfo', methods=['GET'])
 def get_email_info():
-    from app import app
-
     app.logger.info("method oauth2/emailinfo")
     if 'email' in request.args and 'access_token' in request.args:
         app.logger.info("query token")

@@ -8,7 +8,6 @@ from ..forms.user import AuthenticateForm, UserCreationForm, UserEditBaseForm, U
 
 from flask_babel import lazy_gettext as _l
 
-from oauth2 import current_url
 from flask import request
 
 import json

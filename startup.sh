@@ -1,3 +1,2 @@
 #!/usr/bin/env bash
-export FLASK_APP=app.py
-flask run --host=0.0.0.0 --port=443
+gunicorn -w 4 -b 0.0.0.0:443 wsgi:app

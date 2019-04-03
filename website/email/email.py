@@ -3,6 +3,8 @@ from flask import render_template
 from flask_babel import lazy_gettext as _l
 from flask_mail import Message
 
+import app_main as app
+
 
 def send_async_email(app, msg, mail):
     with app.app_context():
@@ -11,7 +13,6 @@ def send_async_email(app, msg, mail):
 
 def send_email(subject, sender, recipients, text_body, html_body,
                attachments=None, sync=False):
-    from app import mail, app
 
     msg = Message(subject, sender=sender, recipients=recipients)
     msg.body = text_body
@@ -20,14 +21,12 @@ def send_email(subject, sender, recipients, text_body, html_body,
         for attachment in attachments:
             msg.attach(*attachment)
     if sync:
-        mail.send(msg)
+        app.each_mail.send(msg)
     else:
-        Thread(target=send_async_email, args=(app, msg, mail)).start()
+        Thread(target=send_async_email, args=(app, msg, app.each_mail)).start()
 
 
 def send_password_reset_email(user):
-    from app import app
-
     token = user.get_reset_password_token()
     send_email(_l('[EACH] Reset Your Password'),
                sender=app.config['ADMINS'][0],

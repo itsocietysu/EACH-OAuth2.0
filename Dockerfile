@@ -12,7 +12,7 @@ COPY group_vars/ 	./group_vars/
 COPY conf/ 		./conf/
 
 COPY wsgi.py 		./wsgi.py
-COPY app.py 		./app.py
+COPY app_main.py 	./app_main.py
 COPY babel.cfg          ./babel.cfg
 COPY ansible.cfg 	./ansible.cfg
 

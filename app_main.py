@@ -24,7 +24,7 @@ else:
     app = create_app(conf_file)
 
 babel = Babel(app)
-mail = Mail(app)
+each_mail = Mail(app)
 
 
 @babel.localeselector

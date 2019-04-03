@@ -8,7 +8,7 @@ from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired, Email
 from wtforms.validators import StopValidation
 
-from ..email import send_password_reset_email
+from ..email.email import send_password_reset_email
 from .base import BaseForm
 from ..models import db, User
 from ..auth import login
